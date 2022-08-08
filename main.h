@@ -1,44 +1,41 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <unistd.h>
-#include <stdlib.h>
+#define BUFSIZE 1024
 #include <stdarg.h>
 
 /**
- * struct convert - defines a structure for symbols and functions
- * @sym: The operator
+ * struct spec_types - Struct to get function of specifier
+ * @spec: specifier
  * @f: The function associated
  */
-struct convert
+typedef struct spec_types
 {
-	char *sym;
-	int (*f)(va_list);
-};
-typedef struct convert conver_t;
+	char *spec;
+	char *(*f)();
+} s_types;
 
-/*Main functions*/
-int parser(const char *format, conver_t f_list[], va_list arg_list);
+
+char *(*get_spec_func(char s))(va_list);
 int _printf(const char *format, ...);
-int _write_char(char);
-int print_char(va_list);
-int print_string(va_list);
-int print_percent(va_list);
-int print_integer(va_list);
-int print_number(va_list);
-int print_binary(va_list);
-int print_reversed(va_list arg);
-int rot13(va_list);
-int unsigned_integer(va_list);
-int print_octal(va_list list);
-int print_hex(va_list list);
-int print_heX(va_list list);
-
-/*Helper functions*/
-unsigned int base_len(unsigned int, int);
-char *rev_string(char *);
-void write_base(char *str);
-char *_memcpy(char *dest, char *src, unsigned int n);
-int print_unsgined_number(unsigned int);
+char *char_find(va_list c);
+char *string_find(va_list s);
+char *percent_find(void);
+char *int_find(va_list npoint);
+char *unsigned_find(va_list unsign);
+int _strlen(char *s);
+void _puts(char *buffer, int size);
+char *chartos(char c);
+char *nothing_found(char c);
+char *_memcpy(char *dest, char *src, unsigned int n, unsigned int bufferlen);
+int alloc_buffer(char *hold, int hlen, char *buffer, int size, double *total);
+char *rev_find(va_list s);
+char *rot13_find(va_list s);
+char *binary_find(va_list n);
+char *octal_find(va_list n);
+char *hex_find(va_list n);
+char *HEX_find(va_list n);
+char *address_find(va_list n);
+char *rev_string(char *a, int n);
 
 #endif
